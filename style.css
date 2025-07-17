@@ -1,0 +1,34 @@
+
+body {
+  font-family: sans-serif;
+  text-align: center;
+  background-color: #0d1117;
+  color: white;
+  margin: 0;
+  padding: 0;
+}
+.container {
+  margin-top: 50px;
+}
+.banner {
+  width: 90%;
+  max-width: 600px;
+}
+button {
+  background-color: #58a6ff;
+  border: none;
+  padding: 15px 30px;
+  font-size: 18px;
+  color: white;
+  margin-top: 20px;
+  cursor: pointer;
+  border-radius: 8px;
+}
+button:hover {
+  background-color: #1f6feb;
+}
+.disclaimer {
+  margin-top: 20px;
+  font-size: 0.9em;
+  color: #aaa;
+}
