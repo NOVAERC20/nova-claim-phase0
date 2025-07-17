@@ -1,34 +1,55 @@
-
 body {
-  font-family: sans-serif;
+  background-color: #0d0d0d;
+  font-family: Arial, sans-serif;
+  color: white;
   text-align: center;
-  background-color: #0d1117;
-  color: white;
-  margin: 0;
-  padding: 0;
+  padding: 40px 20px;
 }
-.container {
-  margin-top: 50px;
+
+h1 {
+  font-size: 32px;
+  margin-bottom: 10px;
 }
-.banner {
-  width: 90%;
-  max-width: 600px;
-}
-button {
-  background-color: #58a6ff;
-  border: none;
-  padding: 15px 30px;
+
+p {
   font-size: 18px;
+  margin-bottom: 30px;
+}
+
+.claim-button {
+  background-color: #3399ff;
   color: white;
-  margin-top: 20px;
+  border: none;
+  padding: 15px 32px;
+  font-size: 18px;
   cursor: pointer;
-  border-radius: 8px;
+  border-radius: 6px;
 }
-button:hover {
-  background-color: #1f6feb;
+
+.claim-button:hover {
+  background-color: #1a8cff;
 }
+
 .disclaimer {
-  margin-top: 20px;
-  font-size: 0.9em;
-  color: #aaa;
+  margin-top: 25px;
+  font-size: 13px;
+  color: #999;
+}
+
+/* ✅ Responsive improvements */
+@media (max-width: 600px) {
+  h1 {
+    font-size: 22px;
+  }
+
+  .claim-button {
+    font-size: 16px;
+    padding: 12px 24px;
+  }
+
+  .banner-image {
+    margin-bottom: 16px;
+    max-width: 100%;
+    height: auto;
+  }
 }
