@@ -25,11 +25,96 @@
       height: auto;
       display: block;
     }
+
+    .content {
+      padding: 1rem;
+    }
+
+    .button {
+      background-color: #00c2ff;
+      border: none;
+      color: black;
+      padding: 15px 30px;
+      text-align: center;
+      font-size: 18px;
+      margin-top: 20px;
+      cursor: pointer;
+      border-radius: 8px;
+    }
+
+    .button:disabled {
+      background-color: #555;
+      cursor: not-allowed;
+    }
+
+    .warning {
+      font-size: 0.9rem;
+      color: #ffcc00;
+      margin-top: 1rem;
+    }
   </style>
+  <script>
+    let contract;
+    const CONTRACT_ADDRESS = "0xe3d931336f6528246349f9ce6db6F7e20C0c58b8";
+    const ABI=[{"inputs":[{"internalType":"address","name":"_token","type":"address"}],"stateMutability":"nonpayable","type":"constructor"},{"inputs":[],"name":"ClaimAmount","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"claim","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"claimActive","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"hasClaimed","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"maxClaimers","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"bool","name":"_active","type":"bool"}],"name":"toggleClaiming","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"token","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalClaimed","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"_newAmount","type":"uint256"}],"name":"updateClaimAmount","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"_newMax","type":"uint256"}],"name":"updateMaxClaimers","outputs":[],"stateMutability":"nonpayable","type":"function"}];
+
+    async function connectWallet() {
+      if (window.ethereum) {
+        try {
+          const accounts = await window.ethereum.request({ method: "eth_requestAccounts" });
+          const address = accounts[0];
+          document.getElementById("wallet-address").textContent = "Connected: " + address.slice(0, 6) + "..." + address.slice(-4);
+          await setupContract();
+        } catch (err) {
+          alert("Wallet connection failed.");
+        }
+      } else {
+        alert("MetaMask not detected.");
+      }
+    }
+
+    async function setupContract() {
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const signer = provider.getSigner();
+      contract = new ethers.Contract(CONTRACT_ADDRESS, ABI, signer);
+    }
+
+    async function claimNOVA() {
+      if (!contract) return alert("Wallet not connected.");
+      try {
+        const tx = await contract.claim();
+        document.getElementById("claim-button").disabled = true;
+        document.getElementById("claim-button").textContent = "Claiming...";
+        await tx.wait();
+        alert("Claim successful!");
+        document.getElementById("claim-button").textContent = "Claimed";
+      } catch (err) {
+        console.error(err);
+        alert("Claim failed.");
+        document.getElementById("claim-button").textContent = "Claim";
+        document.getElementById("claim-button").disabled = false;
+      }
+    }
+  </script>
 </head>
 <body>
   <div class="banner-container">
-    <img src="nova-banner.png" alt="NOVA banner">
+    <img src="banner.png" alt="NOVA banner">
   </div>
+
+  <div class="content">
+    <h2>Claim Your NOVA</h2>
+    <p>1 NOVA = 10 Lira = ⚡ 100 Volt</p>
+    <p>Phase 0: 1,000 NOVA per claim</p>
+    <p>Ends after 100,000 coins</p>
+    <p class="warning">⚠️ Experimental test phase. Use at your own risk.</p>
+
+    <p id="wallet-address">Wallet not connected</p>
+    <button class="button" onclick="connectWallet()">Connect Wallet</button>
+    <button class="button" id="claim-button" onclick="claimNOVA()">Claim</button>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+  <script src="abi.js"></script>
 </body>
 </html>

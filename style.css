@@ -1,55 +1,34 @@
+
 body {
-  background-color: #0d0d0d;
-  font-family: Arial, sans-serif;
-  color: white;
+  font-family: sans-serif;
   text-align: center;
-  padding: 40px 20px;
-}
-
-h1 {
-  font-size: 32px;
-  margin-bottom: 10px;
-}
-
-p {
-  font-size: 18px;
-  margin-bottom: 30px;
-}
-
-.claim-button {
-  background-color: #3399ff;
+  background-color: #0d1117;
   color: white;
+  margin: 0;
+  padding: 0;
+}
+.container {
+  margin-top: 50px;
+}
+.banner {
+  width: 90%;
+  max-width: 600px;
+}
+button {
+  background-color: #58a6ff;
   border: none;
-  padding: 15px 32px;
+  padding: 15px 30px;
   font-size: 18px;
+  color: white;
+  margin-top: 20px;
   cursor: pointer;
-  border-radius: 6px;
+  border-radius: 8px;
 }
-
-.claim-button:hover {
-  background-color: #1a8cff;
+button:hover {
+  background-color: #1f6feb;
 }
-
 .disclaimer {
-  margin-top: 25px;
-  font-size: 13px;
-  color: #999;
-}
-
-/* ✅ Responsive improvements */
-@media (max-width: 600px) {
-  h1 {
-    font-size: 22px;
-  }
-
-  .claim-button {
-    font-size: 16px;
-    padding: 12px 24px;
-  }
-
-  .banner-image {
-    margin-bottom: 16px;
-    max-width: 100%;
-    height: auto;
-  }
+  margin-top: 20px;
+  font-size: 0.9em;
+  color: #aaa;
 }
